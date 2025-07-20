@@ -20,3 +20,10 @@ git clone https://github.com/Wolfe-Jam/gallery-svelte-portfolio.git
 cd gallery-svelte-portfolio
 npm install
 npm run dev
+
+🎯 Purpose
+This repository showcases modern Svelte component architecture and TypeScript implementation patterns. All components use demo data for portfolio demonstration.
+Note: Complete setup documentation coming soon.
+
+📄 License
+MIT License - Build amazing things! 🎉
