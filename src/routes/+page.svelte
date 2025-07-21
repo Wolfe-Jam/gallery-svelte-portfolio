@@ -32,12 +32,11 @@
         <h1 class="main-title">Gallery Svelte Portfolio</h1>
         <p class="subtitle">Professional UI Components for E-commerce</p>
         
-        <div class="size-controls">
-            <label>Grid Size: {flipCardSize}</label>
-            
-            <!-- Fixed toggle position -->
-            <div class="toggle-section">
-                <span class="toggle-label">#s</span>
+        <!-- GridViewBar component -->
+        <div class="grid-view-bar">
+            <!-- Toggle positioned as button 0 -->
+            <div class="toggle-button">
+                <span class="toggle-label"><strong>#s</strong></span>
                 <button 
                     class="toggle-switch" 
                     class:on={showNumbers}
@@ -48,24 +47,36 @@
                 </button>
             </div>
             
-            <!-- Dynamic control area -->
-            <div class="control-area">
+            <!-- Control bar area -->
+            <div class="control-bar">
                 {#if showNumbers}
                     <!-- Number buttons -->
-                    <div class="number-buttons">
-                        {#each [1,2,3,4,5,6,7,8,9] as num}
-                            <button 
-                                class="num-btn"
-                                class:active={flipCardSize === num} 
-                                onclick={() => flipCardSize = num}
-                            >
-                                {num}
-                            </button>
-                        {/each}
-                    </div>
+                    {#each [1,2,3,4,5,6,7,8,9] as num}
+                        <button 
+                            class="num-btn"
+                            class:active={flipCardSize === num} 
+                            onclick={() => flipCardSize = num}
+                        >
+                            {num}
+                        </button>
+                    {/each}
                 {:else}
-                    <!-- Slider -->
-                    <input type="range" min="1" max="9" bind:value={flipCardSize} />
+                    <!-- Slider with nodes -->
+                    <div class="slider-container">
+                        <input 
+                            type="range" 
+                            min="1" 
+                            max="9" 
+                            step="1"
+                            bind:value={flipCardSize}
+                            class="grid-slider"
+                        />
+                        <div class="slider-nodes">
+                            {#each [1,2,3,4,5,6,7,8,9] as num}
+                                <div class="slider-node" class:active={flipCardSize === num}></div>
+                            {/each}
+                        </div>
+                    </div>
                 {/if}
             </div>
         </div>
@@ -115,110 +126,175 @@
         color: var(--color-text, #333333);
     }
     
-    .size-controls {
+    /* GridViewBar - Compact single bar control */
+    .grid-view-bar {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 1rem;
+        gap: 0;
         margin-bottom: 2rem;
-        padding: 1rem;
-        background: var(--color-surface, #f8f9fa);
-        border-radius: 8px;
-        flex-wrap: wrap;
+        background: #000000;
+        border-radius: 20px;
+        padding: 4px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
     }
     
-    .size-controls label {
-        font-weight: 500;
-        color: var(--color-text, #333333);
-    }
-    
-    .size-controls input[type="range"] {
-        width: 200px;
-    }
-    
-    /* Toggle section - fixed position */
-    .toggle-section {
+    /* Toggle button positioned as button 0 */
+    .toggle-button {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        flex-shrink: 0;
+        gap: 4px;
+        padding: 0 8px;
     }
     
     .toggle-label {
-        font-size: 0.875rem;
-        color: #666;
-        font-weight: 500;
+        font-size: 0.75rem;
+        color: white;
+        font-weight: bold;
+        margin-right: 2px;
     }
     
-    /* Control area for dynamic content */
-    .control-area {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 32px;
-        flex-grow: 1;
-    }
-    
-    /* Toggle switch */
+    /* Toggle switch - black/white theme, same height as number buttons */
     .toggle-switch {
         position: relative;
-        width: 44px;
-        height: 24px;
-        background: #ccc;
+        width: 32px;
+        height: 28px;
+        background: #666;
         border: none;
-        border-radius: 12px;
+        border-radius: 14px;
         cursor: pointer;
         transition: background-color 0.3s;
         padding: 0;
     }
     
     .toggle-switch.on {
-        background: var(--color-primary, #0066cc);
+        background: #333;
     }
     
     .toggle-circle {
         position: absolute;
         top: 2px;
         left: 2px;
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         background: white;
         border-radius: 50%;
         transition: transform 0.3s;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
     }
     
     .toggle-switch.on .toggle-circle {
-        transform: translateX(20px);
+        transform: translateX(6px);
     }
     
-    /* Number buttons */
-    .number-buttons {
+    /* Control bar - exact fit for buttons or slider */
+    .control-bar {
         display: flex;
-        gap: 0.5rem;
+        align-items: center;
+        height: 28px;
+        margin-left: 4px;
     }
     
+    /* Number buttons - round, compact, black/white */
     .num-btn {
-        width: 32px;
-        height: 32px;
-        border: 1px solid #ddd;
+        width: 28px;
+        height: 28px;
+        border: 1px solid #333;
         background: white;
-        border-radius: 6px;
+        border-radius: 50%;
         cursor: pointer;
         transition: all 0.2s;
-        font-weight: 500;
-        color: #666;
+        font-weight: 600;
+        font-size: 0.75rem;
+        color: #333;
+        margin: 0 1px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     
     .num-btn:hover {
-        border-color: var(--color-primary, #0066cc);
-        color: var(--color-primary, #0066cc);
+        background: #f0f0f0;
+        transform: scale(1.05);
     }
     
     .num-btn.active {
-        background: var(--color-primary, #0066cc);
+        background: #333;
         color: white;
-        border-color: var(--color-primary, #0066cc);
+        border-color: #333;
+    }
+    
+    /* Slider container - exact fit */
+    .slider-container {
+        position: relative;
+        width: 262px; /* 9 buttons × 28px + 8 gaps × 2px */
+        height: 28px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Custom slider - black theme */
+    .grid-slider {
+        width: 100%;
+        height: 4px;
+        background: #333;
+        border-radius: 2px;
+        outline: none;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+    
+    .grid-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        background: white;
+        border: 2px solid #333;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    
+    .grid-slider::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        background: white;
+        border: 2px solid #333;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    
+    /* Slider nodes - positioned where numbers would be */
+    .slider-nodes {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+        padding: 0 14px; /* Center nodes with slider thumb */
+    }
+    
+    .slider-node {
+        width: 6px;
+        height: 6px;
+        background: #666;
+        border-radius: 50%;
+        transition: all 0.2s;
+    }
+    
+    .slider-node.active {
+        background: white;
+        transform: scale(1.3);
+        box-shadow: 0 0 4px rgba(255,255,255,0.5);
     }
     
     /* EXCEPTIONAL POD Gallery grid system */
