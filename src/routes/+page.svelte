@@ -133,12 +133,3 @@
         }
     }
 </style>
-
-<style>
-    .size-controls {
-        margin: 2rem 0;
-        padding: 1rem;
-        background: var(--color-surface);
-        border-radius: 8px;
-    }
-</style>
