@@ -43,7 +43,10 @@
             <!-- Left Zone -->
             <div class="flex-zone flex-left">
                 <!-- Theme toggle placeholder -->
-                <button class="flex-item theme-toggle" title="Theme (coming soon)">🌓</button>
+                <button class="flex-item theme-toggle">
+                    🌓
+                    <div class="flex-tooltip">Theme</div>
+                </button>
             </div>
             
             <!-- Center Zone - Zoom Controls -->
@@ -100,33 +103,41 @@
                         class="layout-btn"
                         class:active={cardDisplayMode === 1}
                         onclick={() => cardDisplayMode = 1}
-                        title="Single card"
-                    >1</button>
+                    >
+                        1
+                        <div class="flex-tooltip">Single card</div>
+                    </button>
                     <button 
                         class="layout-btn"
                         class:active={cardDisplayMode === 3}
                         onclick={() => cardDisplayMode = 3}
-                        title="3 cards"
-                    >3</button>
+                    >
+                        3
+                        <div class="flex-tooltip">3 cards</div>
+                    </button>
                     <button 
                         class="layout-btn"
                         class:active={cardDisplayMode === 'all'}
                         onclick={() => cardDisplayMode = 'all'}
-                        title="All cards"
-                    >All</button>
+                    >
+                        All
+                        <div class="flex-tooltip">All cards</div>
+                    </button>
                     
                     <!-- Spacing Control Toggle - next to All -->
                     <button 
                         class="layout-btn spacing-toggle"
                         class:separated={isFlexBarSeparated}
                         onclick={() => isFlexBarSeparated = !isFlexBarSeparated}
-                        title="Toggle spacing: {isFlexBarSeparated ? 'Separated' : 'Compact'}"
                     >
                         {#if isFlexBarSeparated}
                             <span class="spacing-icon">&lt;|&gt;</span>
                         {:else}
                             <span class="spacing-icon">&gt;|&lt;</span>
                         {/if}
+                        <div class="flex-tooltip">
+                            {isFlexBarSeparated ? 'Spacious' : 'Compact'}
+                        </div>
                     </button>
                 </div>
             </div>
@@ -199,7 +210,14 @@
     /* Separated mode - spread zones far apart */
     .flex-bar.separated {
         justify-content: space-between;
-        gap: 2rem;
+        gap: 3rem;
+        padding: 4px 20px; /* More padding to show expansion */
+    }
+    
+    /* Compact mode styling */
+    .flex-bar:not(.separated) {
+        justify-content: center;
+        gap: 4px; /* Tight spacing */
     }
     
     /* Flex zones */
@@ -486,6 +504,49 @@
         font-size: 0.625rem;
         line-height: 1;
         font-weight: 600;
+    }
+    
+    /* FlexBar tooltips */
+    .flex-tooltip {
+        position: absolute;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #333;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+        z-index: 100;
+    }
+    
+    .flex-tooltip::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 4px solid transparent;
+        border-bottom-color: #333;
+    }
+    
+    /* Show tooltips on hover */
+    .theme-toggle:hover .flex-tooltip,
+    .layout-btn:hover .flex-tooltip,
+    .toggle-button:hover .flex-tooltip {
+        opacity: 1;
+    }
+    
+    /* Position relative for tooltip positioning */
+    .theme-toggle,
+    .layout-btn,
+    .toggle-button {
+        position: relative;
     }
     
     /* EXCEPTIONAL POD Gallery grid system */
