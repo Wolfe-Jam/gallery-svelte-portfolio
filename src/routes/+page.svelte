@@ -20,6 +20,8 @@
     
     let flipCardSize: SizeKey = 4;
     let showNumbers = false;
+    let isFlexBarSeparated = false;
+    let cardDisplayMode: 1 | 3 | 'all' = 3;
     
     function handleViewSize8(productId: string) {
         flipCardSize = 8;
@@ -32,56 +34,103 @@
         <h1 class="main-title">Gallery Svelte Portfolio</h1>
         <p class="subtitle">Professional UI Components for E-commerce</p>
         
-        <!-- GridViewBar component -->
-        <div class="grid-view-bar">
-            <!-- Toggle positioned as button 0 -->
-            <div class="toggle-button">
-                <span class="toggle-label"><strong>#s</strong></span>
-                <button 
-                    class="toggle-switch" 
-                    class:on={showNumbers}
-                    onclick={() => showNumbers = !showNumbers}
-                    aria-label="Toggle number buttons"
-                >
-                    <span class="toggle-circle"></span>
-                </button>
+        <!-- FlexBar - Revolutionary alignment control system -->
+        <div class="flex-bar" class:separated={isFlexBarSeparated}>
+            <!-- Left Zone -->
+            <div class="flex-zone flex-left">
+                <!-- Theme toggle placeholder -->
+                <button class="flex-item theme-toggle" title="Theme (coming soon)">🌓</button>
             </div>
             
-            <!-- Control bar area -->
-            <div class="control-bar">
-                {#if showNumbers}
-                    <!-- Number buttons -->
-                    {#each [1,2,3,4,5,6,7,8,9] as num}
-                        <button 
-                            class="num-btn"
-                            class:active={flipCardSize === num} 
-                            onclick={() => flipCardSize = num}
-                        >
-                            {num}
-                        </button>
-                    {/each}
-                {:else}
-                    <!-- Slider -->
-                    <div class="slider-container">
-                        <input 
-                            type="range" 
-                            min="1" 
-                            max="9" 
-                            step="1"
-                            bind:value={flipCardSize}
-                            class="grid-slider"
-                        />
-                        <div class="slider-tooltip" style="left: {((flipCardSize - 1) / 8) * 100}%">
-                            {flipCardSize}
+            <!-- Center Zone - Zoom Controls -->
+            <div class="flex-zone flex-center">
+                <!-- Toggle positioned as button 0 -->
+                <div class="flex-item toggle-button">
+                    <span class="toggle-label"><strong>#s</strong></span>
+                    <button 
+                        class="toggle-switch" 
+                        class:on={showNumbers}
+                        onclick={() => showNumbers = !showNumbers}
+                        aria-label="Toggle number buttons"
+                    >
+                        <span class="toggle-circle"></span>
+                    </button>
+                </div>
+                
+                <!-- Control bar area -->
+                <div class="flex-item control-bar">
+                    {#if showNumbers}
+                        <!-- Number buttons -->
+                        {#each [1,2,3,4,5,6,7,8,9] as num}
+                            <button 
+                                class="num-btn"
+                                class:active={flipCardSize === num} 
+                                onclick={() => flipCardSize = num}
+                            >
+                                {num}
+                            </button>
+                        {/each}
+                    {:else}
+                        <!-- Slider -->
+                        <div class="slider-container">
+                            <input 
+                                type="range" 
+                                min="1" 
+                                max="9" 
+                                step="1"
+                                bind:value={flipCardSize}
+                                class="grid-slider"
+                            />
+                            <div class="slider-tooltip" style="left: {((flipCardSize - 1) / 8) * 100}%">
+                                {flipCardSize}
+                            </div>
                         </div>
-                    </div>
-                {/if}
+                    {/if}
+                </div>
             </div>
+            
+            <!-- Right Zone - Layout Controls -->
+            <div class="flex-zone flex-right">
+                <div class="flex-item layout-controls">
+                    <button 
+                        class="layout-btn"
+                        class:active={cardDisplayMode === 1}
+                        onclick={() => cardDisplayMode = 1}
+                        title="Single card"
+                    >1</button>
+                    <button 
+                        class="layout-btn"
+                        class:active={cardDisplayMode === 3}
+                        onclick={() => cardDisplayMode = 3}
+                        title="3 cards"
+                    >3</button>
+                    <button 
+                        class="layout-btn"
+                        class:active={cardDisplayMode === 'all'}
+                        onclick={() => cardDisplayMode = 'all'}
+                        title="All cards"
+                    >All</button>
+                </div>
+            </div>
+            
+            <!-- Spacing Control Toggle -->
+            <button 
+                class="spacing-toggle"
+                class:separated={isFlexBarSeparated}
+                onclick={() => isFlexBarSeparated = !isFlexBarSeparated}
+                title="Toggle spacing: {isFlexBarSeparated ? 'Separated' : 'Compact'}"
+            >
+                {#if isFlexBarSeparated}
+                    <span class="spacing-icon">|&nbsp;&nbsp;&nbsp;&nbsp;|</span>
+                {:else}
+                    <span class="spacing-icon">||</span>
+                {/if}
+            </button>
         </div>
         
         <!-- Using the EXCEPTIONAL POD Gallery grid system -->
         <div class="grid-container">
-            {#each demoProducts as product}
+            {#each demoProducts.slice(0, cardDisplayMode === 'all' ? demoProducts.length : cardDisplayMode) as product}
                 <div class="grid-item">
                     <div class="flipcard-isolator">
                         <FlipCard
@@ -124,20 +173,57 @@
         color: var(--color-text, #333333);
     }
     
-    /* GridViewBar - Compact single bar control */
-    .grid-view-bar {
+    /* FlexBar - Revolutionary alignment control system */
+    .flex-bar {
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 0;
+        justify-content: space-between;
+        gap: 1rem;
         margin-bottom: 2rem;
         background: #000000;
         border-radius: 20px;
         padding: 4px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        width: fit-content;
+        width: 100%;
+        max-width: 800px;
         margin-left: auto;
         margin-right: auto;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+    
+    /* Separated mode - spread zones far apart */
+    .flex-bar.separated {
+        justify-content: space-between;
+        gap: 2rem;
+    }
+    
+    /* Flex zones */
+    .flex-zone {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    
+    .flex-left {
+        justify-content: flex-start;
+        flex: 0 0 auto;
+    }
+    
+    .flex-center {
+        justify-content: center;
+        flex: 1 1 auto;
+    }
+    
+    .flex-right {
+        justify-content: flex-end;
+        flex: 0 0 auto;
+    }
+    
+    /* Flex items */
+    .flex-item {
+        display: flex;
+        align-items: center;
     }
     
     /* Toggle button positioned as button 0 */
@@ -328,6 +414,99 @@
     .slider-container:hover .slider-tooltip,
     .grid-slider:focus + .slider-tooltip {
         opacity: 1;
+    }
+    
+    /* Theme toggle */
+    .theme-toggle {
+        width: 28px;
+        height: 28px;
+        border: none;
+        background: transparent;
+        color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .theme-toggle:hover {
+        background: rgba(255,255,255,0.1);
+        transform: scale(1.05);
+    }
+    
+    /* Layout controls */
+    .layout-controls {
+        display: flex;
+        gap: 2px;
+    }
+    
+    .layout-btn {
+        width: 28px;
+        height: 28px;
+        border: 1px solid #333;
+        background: white;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-weight: 600;
+        font-size: 0.75rem;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .layout-btn:hover {
+        background: #f0f0f0;
+        transform: scale(1.05);
+    }
+    
+    .layout-btn.active {
+        background: #333;
+        color: white;
+        border-color: #333;
+    }
+    
+    /* Spacing toggle */
+    .spacing-toggle {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 24px;
+        height: 24px;
+        border: 2px solid #000;
+        background: white;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.625rem;
+        font-weight: 600;
+        color: #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        z-index: 10;
+    }
+    
+    .spacing-toggle:hover {
+        background: #f0f0f0;
+        transform: scale(1.1);
+    }
+    
+    .spacing-toggle.separated {
+        background: #F4633A;
+        color: white;
+        border-color: #F4633A;
+    }
+    
+    .spacing-icon {
+        font-family: monospace;
+        font-size: 0.5rem;
+        line-height: 1;
     }
     
     /* EXCEPTIONAL POD Gallery grid system */
