@@ -149,20 +149,20 @@
     }
     
     .toggle-label {
-        font-size: 0.75rem;
+        font-size: 0.625rem;  /* Reduced to match smaller toggle */
         color: white;
         font-weight: bold;
         margin-right: 2px;
     }
     
-    /* Toggle switch - black/white theme, same height as number buttons */
+    /* Toggle switch - reduced by 20% for less emphasis */
     .toggle-switch {
         position: relative;
-        width: 48px;  /* Width for two circles */
-        height: 28px;
+        width: 38px;  /* 48px × 0.8 = 38.4px */
+        height: 22px;  /* 28px × 0.8 = 22.4px */
         background: #666;
         border: none;
-        border-radius: 14px;
+        border-radius: 11px;
         cursor: pointer;
         transition: background-color 0.3s;
         padding: 0;
@@ -176,8 +176,8 @@
         position: absolute;
         top: 2px;
         left: 2px;
-        width: 24px;
-        height: 24px;
+        width: 18px;  /* 24px × 0.8 = 19.2px, adjusted to 18px */
+        height: 18px;
         background: white;
         border-radius: 50%;
         transition: transform 0.3s;
@@ -185,7 +185,7 @@
     }
     
     .toggle-switch.on .toggle-circle {
-        transform: translateX(20px);  /* Move full circle width */
+        transform: translateX(16px);  /* Adjusted for smaller size */
     }
     
     /* Control bar - exact fit for buttons or slider */
