@@ -10,12 +10,12 @@
   
   let { items = [], size = 4, gap = 16, children }: Props = $props();
   
-  $: columns = getOptimalColumns(size);
-  $: gridStyle = `
+  const columns = $derived(getOptimalColumns(size));
+  const gridStyle = $derived(`
     display: grid;
     grid-template-columns: repeat(${columns}, 1fr);
     gap: ${gap}px;
-  `;
+  `);
 </script>
 
 <div class="universal-grid" style={gridStyle}>
