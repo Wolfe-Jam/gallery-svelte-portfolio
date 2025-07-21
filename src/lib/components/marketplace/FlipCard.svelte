@@ -1722,7 +1722,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.375rem;
-    margin: 0; /* Remove extra margin - use container gap */
+    margin: 0.5rem 0 0 0; /* 0.5rem top margin for breathing room */
   }
 
   .original-buy-btn:hover {
