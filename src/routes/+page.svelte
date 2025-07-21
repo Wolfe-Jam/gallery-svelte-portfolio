@@ -114,7 +114,7 @@
         font-weight: 700;
         text-align: center;
         margin-bottom: 1rem;
-        color: var(--color-primary, #0066cc);
+        color: #00859B;  /* Updated teal color */
     }
     
     .subtitle {
@@ -251,14 +251,14 @@
     .grid-slider::-webkit-slider-runnable-track {
         width: 100%;
         height: 6px;
-        background: #ff6600;
+        background: #F4633A;
         border-radius: 3px;
     }
     
     .grid-slider::-moz-range-track {
         width: 100%;
         height: 6px;
-        background: #ff6600;
+        background: #F4633A;
         border-radius: 3px;
     }
     
@@ -269,7 +269,7 @@
         width: 20px;
         height: 20px;
         background: white;
-        border: 2px solid #ff6600;
+        border: 2px solid #F4633A;
         border-radius: 50%;
         cursor: pointer;
         margin-top: -7px;
@@ -281,7 +281,7 @@
         width: 20px;
         height: 20px;
         background: white;
-        border: 2px solid #ff6600;
+        border: 2px solid #F4633A;
         border-radius: 50%;
         cursor: pointer;
         box-shadow: 0 2px 4px rgba(0,0,0,0.2);
