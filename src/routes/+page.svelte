@@ -160,7 +160,7 @@
     /* Toggle switch - black/white theme, same height as number buttons */
     .toggle-switch {
         position: relative;
-        width: 32px;
+        width: 48px;  /* Width for two circles */
         height: 28px;
         background: #666;
         border: none;
@@ -187,7 +187,7 @@
     }
     
     .toggle-switch.on .toggle-circle {
-        transform: translateX(6px);
+        transform: translateX(20px);  /* Move full circle width */
     }
     
     /* Control bar - exact fit for buttons or slider */
