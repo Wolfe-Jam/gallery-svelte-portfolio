@@ -38,7 +38,7 @@ export type SizeValue = typeof BAI_SIZES[SizeKey];
  */
 export function getOptimalColumns(size: SizeKey): number {
   const columnMap: Record<SizeKey, number> = {
-    1: 8,  // 88px - Maximum density
+    1: 9,  // 88px - Maximum density - show all 9 cards!
     2: 8,  // 111px - High density
     3: 6,  // 166px - Medium-high density
     4: 5,  // 222px - Balanced density

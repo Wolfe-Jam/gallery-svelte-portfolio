@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { BAI_SIZES, type SizeKey } from '$lib/constants/sizing.js';
+    import { BAI_SIZES, type SizeKey, getOptimalColumns } from '$lib/constants/sizing.js';
     import FlipCard from '$lib/components/marketplace/FlipCard.svelte';
     import { flipcardPreferences } from '$lib/stores/flipcardPreferences.js';
     import { demoProducts } from '$lib/data/demo-products.js';
@@ -27,6 +27,10 @@
         flipCardSize = 8;
         console.log('View SIZE-8 for:', productId);
     }
+    
+    // Calculate how many cards to show and grid columns
+    $: maxCards = cardDisplayMode === 'all' ? getOptimalColumns(flipCardSize) : cardDisplayMode;
+    $: gridColumns = cardDisplayMode === 'all' ? getOptimalColumns(flipCardSize) : Math.min(cardDisplayMode, demoProducts.length);
 </script>
 
 <main class="main-content">
@@ -129,8 +133,8 @@
         </div>
         
         <!-- Using the EXCEPTIONAL POD Gallery grid system -->
-        <div class="grid-container">
-            {#each demoProducts.slice(0, cardDisplayMode === 'all' ? demoProducts.length : cardDisplayMode) as product}
+        <div class="grid-container" style="--grid-columns: {gridColumns}">
+            {#each demoProducts.slice(0, maxCards) as product}
                 <div class="grid-item">
                     <div class="flipcard-isolator">
                         <FlipCard
@@ -486,11 +490,13 @@
     
     /* EXCEPTIONAL POD Gallery grid system */
     .grid-container {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(var(--grid-columns, 3), 1fr);
         justify-content: center;
         gap: 16px;
         padding: 1rem;
+        max-width: 1200px;
+        margin: 0 auto;
     }
     
     .grid-item {
