@@ -3,6 +3,7 @@
     import FlipCard from '$lib/components/marketplace/FlipCard.svelte';
     import { flipcardPreferences } from '$lib/stores/flipcardPreferences.js';
     import { demoProducts } from '$lib/data/demo-products.js';
+    import WolfejamGizmo from '/Users/wolfejam/HEXTRA-COLOR-CATALOGS/src/components/WolfejamGizmo/WolfejamGizmo.svelte';
     
     // Convert demo product to component format
     function demoToComponent(product: any) {
@@ -22,6 +23,7 @@
     let showNumbers = false;
     let isFlexBarSeparated = false;
     let cardDisplayMode: 1 | 3 | 'all' = 3;
+    let isDarkTheme = $state(false);
     
     function handleViewSize8(productId: string) {
         flipCardSize = 8;
@@ -42,11 +44,15 @@
         <div class="flex-bar" class:separated={isFlexBarSeparated}>
             <!-- Left Zone -->
             <div class="flex-zone flex-left">
-                <!-- Theme toggle placeholder -->
-                <button class="flex-item theme-toggle">
-                    🌓
-                    <div class="flex-tooltip">Theme</div>
-                </button>
+                <!-- WolfejamGizmo - Signature theme toggle -->
+                <div class="flex-item">
+                    <WolfejamGizmo
+                        bind:isDark={isDarkTheme}
+                        size={24}
+                        tooltipText="Toggle theme"
+                        onToggle={(dark) => console.log('Theme switched to:', dark ? 'dark' : 'light')}
+                    />
+                </div>
             </div>
             
             <!-- Center Zone - Zoom Controls -->
@@ -214,10 +220,10 @@
         padding: 4px 20px; /* More padding to show expansion */
     }
     
-    /* Compact mode styling */
+    /* Compact mode styling - maintain zone alignment */
     .flex-bar:not(.separated) {
-        justify-content: center;
-        gap: 4px; /* Tight spacing */
+        justify-content: space-between;
+        gap: 8px; /* Moderate spacing in compact mode */
     }
     
     /* Flex zones */
@@ -438,25 +444,10 @@
         opacity: 1;
     }
     
-    /* Theme toggle */
-    .theme-toggle {
-        width: 28px;
-        height: 28px;
-        border: none;
-        background: transparent;
-        color: white;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: all 0.2s;
-        font-size: 0.875rem;
+    /* WolfejamGizmo integration - signature theme toggle */
+    .flex-left .flex-item {
         display: flex;
         align-items: center;
-        justify-content: center;
-    }
-    
-    .theme-toggle:hover {
-        background: rgba(255,255,255,0.1);
-        transform: scale(1.05);
     }
     
     /* Layout controls */
@@ -536,14 +527,12 @@
     }
     
     /* Show tooltips on hover */
-    .theme-toggle:hover .flex-tooltip,
     .layout-btn:hover .flex-tooltip,
     .toggle-button:hover .flex-tooltip {
         opacity: 1;
     }
     
     /* Position relative for tooltip positioning */
-    .theme-toggle,
     .layout-btn,
     .toggle-button {
         position: relative;
