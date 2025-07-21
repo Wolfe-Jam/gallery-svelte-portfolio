@@ -35,34 +35,39 @@
         <div class="size-controls">
             <label>Grid Size: {flipCardSize}</label>
             
-            <!-- Number toggle -->
-            <span class="toggle-label">#s</span>
-            <button 
-                class="toggle-switch" 
-                class:on={showNumbers}
-                onclick={() => showNumbers = !showNumbers}
-                aria-label="Toggle number buttons"
-            >
-                <span class="toggle-circle"></span>
-            </button>
+            <!-- Fixed toggle position -->
+            <div class="toggle-section">
+                <span class="toggle-label">#s</span>
+                <button 
+                    class="toggle-switch" 
+                    class:on={showNumbers}
+                    onclick={() => showNumbers = !showNumbers}
+                    aria-label="Toggle number buttons"
+                >
+                    <span class="toggle-circle"></span>
+                </button>
+            </div>
             
-            {#if showNumbers}
-                <!-- Number buttons -->
-                <div class="number-buttons">
-                    {#each [1,2,3,4,5,6,7,8,9] as num}
-                        <button 
-                            class="num-btn"
-                            class:active={flipCardSize === num} 
-                            onclick={() => flipCardSize = num}
-                        >
-                            {num}
-                        </button>
-                    {/each}
-                </div>
-            {:else}
-                <!-- Slider -->
-                <input type="range" min="1" max="9" bind:value={flipCardSize} />
-            {/if}
+            <!-- Dynamic control area -->
+            <div class="control-area">
+                {#if showNumbers}
+                    <!-- Number buttons -->
+                    <div class="number-buttons">
+                        {#each [1,2,3,4,5,6,7,8,9] as num}
+                            <button 
+                                class="num-btn"
+                                class:active={flipCardSize === num} 
+                                onclick={() => flipCardSize = num}
+                            >
+                                {num}
+                            </button>
+                        {/each}
+                    </div>
+                {:else}
+                    <!-- Slider -->
+                    <input type="range" min="1" max="9" bind:value={flipCardSize} />
+                {/if}
+            </div>
         </div>
         
         <!-- Using the EXCEPTIONAL POD Gallery grid system -->
@@ -131,11 +136,27 @@
         width: 200px;
     }
     
-    /* Toggle label */
+    /* Toggle section - fixed position */
+    .toggle-section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-shrink: 0;
+    }
+    
     .toggle-label {
         font-size: 0.875rem;
         color: #666;
         font-weight: 500;
+    }
+    
+    /* Control area for dynamic content */
+    .control-area {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 32px;
+        flex-grow: 1;
     }
     
     /* Toggle switch */
