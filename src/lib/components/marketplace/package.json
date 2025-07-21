@@ -1,0 +1,50 @@
+{
+  "name": "@bai/flipcard-component",
+  "version": "1.0.0",
+  "description": "🏆 The Tesla of UI Components - Available exclusively on The App Component Store (theBlockchain.ai). Powered by NOBS PAY.",
+  "main": "index.ts",
+  "module": "index.ts",
+  "types": "index.ts",
+  "files": [
+    "FlipCard.svelte",
+    "index.ts",
+    "FlipCard.README.md"
+  ],
+  "keywords": [
+    "premium-ui",
+    "enterprise-components", 
+    "mathematical-precision",
+    "ai-powered",
+    "5-star-quality",
+    "svelte",
+    "flipcard",
+    "bai-marketplace",
+    "hextra-intelligence",
+    "zero-config",
+    "60fps-animations"
+  ],
+  "author": "HEXTRA & bAI Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wolfe-Jam/gallery-svelte"
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "pricing": {
+    "starter": "$299 - Single FlipCard + 3 SIZES + Basic Support",
+    "professional": "$799 - Full Suite + AI Features + Priority Support", 
+    "enterprise": "$2499 - Unlimited + White-label + Custom AI + 24/7 Support"
+  },
+  "features": [
+    "🎯 Mathematical SIZE system (88px-999px) with golden ratio precision",
+    "⚡ 60fps UFO flip animations with microsecond response",
+    "🧠 AI-powered HEXTRA color intelligence integration", 
+    "🎮 4-corner button system with live preference sync",
+    "🏆 Enterprise-grade TypeScript + accessibility (WCAG 2.1 AA)",
+    "📱 Infinite scalability (mobile to 8K displays)",
+    "🚀 Zero-config installation, bundle size under 50KB",
+    "✨ Live global preferences across all instances"
+  ]
+}

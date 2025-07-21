@@ -1,0 +1,227 @@
+/* 🎨 Gallery-Svelte Global Styles */
+
+/* Typography Imports - ALL IN on Roboto + League Spartan for headlines */
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@700;800;900&family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500;600;700&display=swap');
+
+/* CSS Variables */
+:root {
+  /* Typography - Roboto System with League Spartan Headlines */
+  --font-heading: 'League Spartan', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'Roboto Mono', 'Monaco', 'Consolas', monospace;
+  
+  /* Font Weights */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+  --weight-black: 900;
+  
+  /* Light Theme Colors */
+  --color-bg: #ffffff;
+  --color-bg-secondary: #f8f9fa;
+  --color-text: #111827;
+  --color-text-secondary: #6b7280;
+  --color-border: #e5e7eb;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-action: #000000;
+  --color-action-hover: #1f2937;
+  
+  /* Industrial Color Palette */
+  --color-cyan: #22d3ee;
+  --color-cyan-light: #67e8f9;
+  --color-cyan-dark: #0891b2;
+  --color-industrial-dark: #0f172a;
+  --color-industrial-blue: #1e293b;
+  --color-lightning: #f0f9ff;
+  --color-lightning-bright: #e0f2fe;
+  --color-orange: #ea580c;
+  --color-orange-hover: #c2410c;
+  
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+}
+
+/* Dark Theme */
+.dark {
+  --color-bg: #111827;
+  --color-bg-secondary: #1f2937;
+  --color-text: #e5e7eb;
+  --color-text-secondary: #9ca3af;
+  --color-border: #374151;
+  --color-primary: #60a5fa;
+  --color-primary-hover: #93bbfc;
+  --color-action: #000000;
+  --color-action-hover: #1f2937;
+}
+
+/* Industrial Theme */
+.industrial {
+  --color-bg: var(--color-lightning);
+  --color-bg-secondary: var(--color-lightning-bright);
+  --color-text: var(--color-industrial-dark);
+  --color-text-secondary: var(--color-industrial-blue);
+  --color-border: var(--color-cyan-light);
+  --color-primary: var(--color-cyan);
+  --color-primary-hover: var(--color-cyan-dark);
+  --color-action: var(--color-orange);
+  --color-action-hover: var(--color-orange-hover);
+  
+  /* Override red with orange */
+  --color-danger: var(--color-orange);
+  --color-danger-hover: var(--color-orange-hover);
+}
+
+/* Industrial Dark Theme */
+.industrial.dark {
+  --color-bg: var(--color-industrial-dark);
+  --color-bg-secondary: var(--color-industrial-blue);
+  --color-text: var(--color-lightning);
+  --color-text-secondary: var(--color-cyan-light);
+  --color-border: var(--color-industrial-blue);
+  --color-primary: var(--color-cyan);
+  --color-primary-hover: var(--color-cyan-light);
+  --color-action: var(--color-orange);
+  --color-action-hover: var(--color-orange-hover);
+}
+
+/* Global Reset */
+* {
+  box-sizing: border-box;
+}
+
+/* Base Typography */
+body {
+  font-family: var(--font-body);
+  font-weight: var(--weight-regular);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings - League Spartan Bold */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--weight-bold);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: var(--weight-extrabold);
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: var(--weight-bold);
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1.125rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+/* Code & Monospace - Roboto Mono */
+code, pre, .mono {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-medium);
+}
+
+/* Hex codes specifically */
+.hex-code {
+  font-family: var(--font-mono);
+  font-weight: var(--weight-semibold);
+  font-size: 0.875rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* Buttons */
+button {
+  font-family: var(--font-body);
+  font-weight: var(--weight-semibold);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Utility Classes */
+.font-heading {
+  font-family: var(--font-heading) !important;
+}
+
+.font-body {
+  font-family: var(--font-body) !important;
+}
+
+.font-mono {
+  font-family: var(--font-mono) !important;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text);
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--color-primary);
+  color: white;
+}
