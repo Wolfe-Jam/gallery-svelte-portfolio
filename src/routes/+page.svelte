@@ -35,15 +35,16 @@
         <div class="size-controls">
             <label>Grid Size: {flipCardSize}</label>
             
-            <!-- Simple pillbox toggle -->
-            <div class="pillbox-toggle">
-                <button class:active={!showNumbers} onclick={() => showNumbers = false}>
-                    Slider
-                </button>
-                <button class:active={showNumbers} onclick={() => showNumbers = true}>
-                    #s
-                </button>
-            </div>
+            <!-- Number toggle -->
+            <span class="toggle-label">#s</span>
+            <button 
+                class="toggle-switch" 
+                class:on={showNumbers}
+                onclick={() => showNumbers = !showNumbers}
+                aria-label="Toggle number buttons"
+            >
+                <span class="toggle-circle"></span>
+            </button>
             
             {#if showNumbers}
                 <!-- Number buttons -->
@@ -130,29 +131,44 @@
         width: 200px;
     }
     
-    /* Pillbox toggle */
-    .pillbox-toggle {
-        display: inline-flex;
-        background: #e5e5e5;
-        border-radius: 20px;
-        padding: 2px;
-    }
-    
-    .pillbox-toggle button {
-        padding: 4px 12px;
-        border: none;
-        background: transparent;
-        border-radius: 18px;
-        cursor: pointer;
-        transition: all 0.2s;
+    /* Toggle label */
+    .toggle-label {
         font-size: 0.875rem;
         color: #666;
+        font-weight: 500;
     }
     
-    .pillbox-toggle button.active {
+    /* Toggle switch */
+    .toggle-switch {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        background: #ccc;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        padding: 0;
+    }
+    
+    .toggle-switch.on {
+        background: var(--color-primary, #0066cc);
+    }
+    
+    .toggle-circle {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
         background: white;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        color: #333;
+        border-radius: 50%;
+        transition: transform 0.3s;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .toggle-switch.on .toggle-circle {
+        transform: translateX(20px);
     }
     
     /* Number buttons */
