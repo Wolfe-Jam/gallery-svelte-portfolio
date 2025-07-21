@@ -5,7 +5,7 @@
     import Modal from '$lib/components/base/Modal.svelte';
     import FlipCard from '$lib/components/marketplace/FlipCard.svelte';
     import UniversalGridSystem from '$lib/components/marketplace/UniversalGridSystem.svelte';
-    import { demoProducts } from '$lib/data/demo-products';
+    import { demoProducts } from '$lib/data/demo-products.js';
     
     let sidebarOpen = $state(false);
     let modalOpen = $state(false);
