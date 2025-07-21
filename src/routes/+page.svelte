@@ -61,7 +61,7 @@
                         </button>
                     {/each}
                 {:else}
-                    <!-- Slider with nodes -->
+                    <!-- Slider -->
                     <div class="slider-container">
                         <input 
                             type="range" 
@@ -71,10 +71,8 @@
                             bind:value={flipCardSize}
                             class="grid-slider"
                         />
-                        <div class="slider-nodes">
-                            {#each [1,2,3,4,5,6,7,8,9] as num}
-                                <div class="slider-node" class:active={flipCardSize === num}></div>
-                            {/each}
+                        <div class="slider-tooltip" style="left: {((flipCardSize - 1) / 8) * 100}%">
+                            {flipCardSize}
                         </div>
                     </div>
                 {/if}
@@ -236,65 +234,99 @@
         align-items: center;
     }
     
-    /* Custom slider - black theme */
+    /* Custom slider - orange solid color */
     .grid-slider {
         width: 100%;
-        height: 4px;
-        background: #333;
-        border-radius: 2px;
+        height: 6px;
+        background: transparent;
         outline: none;
         cursor: pointer;
         -webkit-appearance: none;
         appearance: none;
+        position: relative;
     }
     
+    /* Track styling */
+    .grid-slider::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 6px;
+        background: #ff6600;
+        border-radius: 3px;
+    }
+    
+    .grid-slider::-moz-range-track {
+        width: 100%;
+        height: 6px;
+        background: #ff6600;
+        border-radius: 3px;
+    }
+    
+    /* Thumb styling */
     .grid-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         background: white;
-        border: 2px solid #333;
+        border: 2px solid #ff6600;
         border-radius: 50%;
         cursor: pointer;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
-    
-    .grid-slider::-moz-range-thumb {
-        width: 16px;
-        height: 16px;
-        background: white;
-        border: 2px solid #333;
-        border-radius: 50%;
-        cursor: pointer;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    }
-    
-    /* Slider nodes - positioned where numbers would be */
-    .slider-nodes {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        transform: translateY(-50%);
-        display: flex;
-        justify-content: space-between;
-        pointer-events: none;
-        padding: 0 14px; /* Center nodes with slider thumb */
-    }
-    
-    .slider-node {
-        width: 6px;
-        height: 6px;
-        background: #666;
-        border-radius: 50%;
+        margin-top: -7px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         transition: all 0.2s;
     }
     
-    .slider-node.active {
+    .grid-slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
         background: white;
-        transform: scale(1.3);
-        box-shadow: 0 0 4px rgba(255,255,255,0.5);
+        border: 2px solid #ff6600;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        transition: all 0.2s;
+    }
+    
+    .grid-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+    
+    .grid-slider::-moz-range-thumb:hover {
+        transform: scale(1.1);
+        box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+    
+    /* Fast tooltip */
+    .slider-tooltip {
+        position: absolute;
+        top: -25px;
+        transform: translateX(-50%);
+        background: #333;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    
+    .slider-tooltip::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 4px solid transparent;
+        border-top-color: #333;
+    }
+    
+    /* Show tooltip on hover/focus */
+    .slider-container:hover .slider-tooltip,
+    .grid-slider:focus + .slider-tooltip {
+        opacity: 1;
     }
     
     /* EXCEPTIONAL POD Gallery grid system */
