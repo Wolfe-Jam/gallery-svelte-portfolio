@@ -1103,7 +1103,7 @@
     position: relative;
     display: inline-flex;
     flex-direction: column;
-    gap: 0.5rem; /* Compact spacing between card and components */
+    gap: 8px; /* Consistent 8px spacing between all elements */
     isolation: isolate; /* Create new stacking context */
     align-items: center; /* Center all child elements */
   }
@@ -1630,7 +1630,7 @@
     gap: 0.375rem;
     justify-content: center;
     align-items: center;
-    padding: 0.25rem 0; /* Reduced spacing - more compact */
+    padding: 0; /* Remove extra padding - use container gap */
   }
   
   .color-swatch {
@@ -1652,8 +1652,8 @@
   /* Simple Tags - Clean Text Only */
   .simple-tags {
     display: flex;
-    gap: 0.75rem;
-    padding: 1rem 0 0.5rem 0;
+    gap: 0.5rem;
+    padding: 0; /* Remove extra padding - use container gap */
     justify-content: center;
     flex-wrap: wrap;
   }
@@ -1673,7 +1673,7 @@
   .toolbar {
     display: flex;
     gap: 0.5rem;
-    padding: 0.375rem;
+    padding: 0; /* Remove extra padding - use container gap */
     background: transparent;
     justify-content: center;
     align-items: center;
@@ -1708,21 +1708,21 @@
   
   /* ⚡️ ORIGINAL BUY BUTTON (Simple & Clean) */
   .original-buy-btn {
-    width: 112px; /* Fixed width - only shows on SIZE-4+ where it fits perfectly */
-    padding: 0.75rem 1.5rem;
+    width: 100px; /* Reduced width for SIZE-4 */
+    padding: 0.5rem 1rem; /* Reduced padding for SIZE-4 */
     background: var(--color-action);
     color: white;
     border: none;
-    border-radius: 1.5rem;
-    font-size: 1rem;
+    border-radius: 1.25rem;
+    font-size: 0.875rem; /* Smaller font for SIZE-4 */
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    margin: 0.5rem auto 0; /* Center the button horizontally */
+    gap: 0.375rem;
+    margin: 0; /* Remove extra margin - use container gap */
   }
 
   .original-buy-btn:hover {
