@@ -110,22 +110,22 @@
                         onclick={() => cardDisplayMode = 'all'}
                         title="All cards"
                     >All</button>
+                    
+                    <!-- Spacing Control Toggle - next to All -->
+                    <button 
+                        class="layout-btn spacing-toggle"
+                        class:separated={isFlexBarSeparated}
+                        onclick={() => isFlexBarSeparated = !isFlexBarSeparated}
+                        title="Toggle spacing: {isFlexBarSeparated ? 'Separated' : 'Compact'}"
+                    >
+                        {#if isFlexBarSeparated}
+                            <span class="spacing-icon">&lt;|&gt;</span>
+                        {:else}
+                            <span class="spacing-icon">&gt;|&lt;</span>
+                        {/if}
+                    </button>
                 </div>
             </div>
-            
-            <!-- Spacing Control Toggle -->
-            <button 
-                class="spacing-toggle"
-                class:separated={isFlexBarSeparated}
-                onclick={() => isFlexBarSeparated = !isFlexBarSeparated}
-                title="Toggle spacing: {isFlexBarSeparated ? 'Separated' : 'Compact'}"
-            >
-                {#if isFlexBarSeparated}
-                    <span class="spacing-icon">|&nbsp;&nbsp;&nbsp;&nbsp;|</span>
-                {:else}
-                    <span class="spacing-icon">||</span>
-                {/if}
-            </button>
         </div>
         
         <!-- Using the EXCEPTIONAL POD Gallery grid system -->
@@ -235,10 +235,10 @@
     }
     
     .toggle-label {
-        font-size: 0.625rem;  /* Reduced to match smaller toggle */
+        font-size: 0.75rem;  /* Increased for better visibility */
         color: white;
         font-weight: bold;
-        margin-right: 2px;
+        margin-right: 3px;
     }
     
     /* Toggle switch - reduced by 20% for less emphasis */
@@ -470,34 +470,8 @@
         border-color: #333;
     }
     
-    /* Spacing toggle */
-    .spacing-toggle {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        width: 24px;
-        height: 24px;
-        border: 2px solid #000;
-        background: white;
-        border-radius: 50%;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-size: 0.625rem;
-        font-weight: 600;
-        color: #333;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-        z-index: 10;
-    }
-    
-    .spacing-toggle:hover {
-        background: #f0f0f0;
-        transform: scale(1.1);
-    }
-    
-    .spacing-toggle.separated {
+    /* Spacing toggle - now integrated with layout controls */
+    .layout-btn.spacing-toggle.separated {
         background: #F4633A;
         color: white;
         border-color: #F4633A;
@@ -505,8 +479,9 @@
     
     .spacing-icon {
         font-family: monospace;
-        font-size: 0.5rem;
+        font-size: 0.625rem;
         line-height: 1;
+        font-weight: 600;
     }
     
     /* EXCEPTIONAL POD Gallery grid system */
