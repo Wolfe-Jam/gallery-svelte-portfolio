@@ -225,18 +225,19 @@
         border-color: #333;
     }
     
-    /* Slider container - exact fit */
+    /* Slider container - extended for breathing room */
     .slider-container {
         position: relative;
-        width: 262px; /* 9 buttons × 28px + 8 gaps × 2px */
+        width: calc(262px + 2rem); /* Original width + 2rem extra black bar */
         height: 28px;
         display: flex;
         align-items: center;
+        padding-right: 1rem; /* Add padding to show black bar after orange */
     }
     
     /* Custom slider - orange solid color */
     .grid-slider {
-        width: 100%;
+        width: calc(100% - 1rem); /* Leave room for black bar at end */
         height: 6px;
         background: transparent;
         outline: none;
