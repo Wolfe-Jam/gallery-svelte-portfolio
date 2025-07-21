@@ -19,6 +19,7 @@
     }
     
     let flipCardSize: SizeKey = 4;
+    let showNumbers = false;
     
     function handleViewSize8(productId: string) {
         flipCardSize = 8;
@@ -32,8 +33,35 @@
         <p class="subtitle">Professional UI Components for E-commerce</p>
         
         <div class="size-controls">
-            <label for="size-slider">Grid Size: {flipCardSize}</label>
-            <input id="size-slider" type="range" min="1" max="9" bind:value={flipCardSize} />
+            <label>Grid Size: {flipCardSize}</label>
+            
+            <!-- Simple pillbox toggle -->
+            <div class="pillbox-toggle">
+                <button class:active={!showNumbers} onclick={() => showNumbers = false}>
+                    Slider
+                </button>
+                <button class:active={showNumbers} onclick={() => showNumbers = true}>
+                    #s
+                </button>
+            </div>
+            
+            {#if showNumbers}
+                <!-- Number buttons -->
+                <div class="number-buttons">
+                    {#each [1,2,3,4,5,6,7,8,9] as num}
+                        <button 
+                            class="num-btn"
+                            class:active={flipCardSize === num} 
+                            onclick={() => flipCardSize = num}
+                        >
+                            {num}
+                        </button>
+                    {/each}
+                </div>
+            {:else}
+                <!-- Slider -->
+                <input type="range" min="1" max="9" bind:value={flipCardSize} />
+            {/if}
         </div>
         
         <!-- Using the EXCEPTIONAL POD Gallery grid system -->
@@ -90,6 +118,7 @@
         padding: 1rem;
         background: var(--color-surface, #f8f9fa);
         border-radius: 8px;
+        flex-wrap: wrap;
     }
     
     .size-controls label {
@@ -97,8 +126,62 @@
         color: var(--color-text, #333333);
     }
     
-    .size-controls input {
+    .size-controls input[type="range"] {
         width: 200px;
+    }
+    
+    /* Pillbox toggle */
+    .pillbox-toggle {
+        display: inline-flex;
+        background: #e5e5e5;
+        border-radius: 20px;
+        padding: 2px;
+    }
+    
+    .pillbox-toggle button {
+        padding: 4px 12px;
+        border: none;
+        background: transparent;
+        border-radius: 18px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 0.875rem;
+        color: #666;
+    }
+    
+    .pillbox-toggle button.active {
+        background: white;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        color: #333;
+    }
+    
+    /* Number buttons */
+    .number-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .num-btn {
+        width: 32px;
+        height: 32px;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-weight: 500;
+        color: #666;
+    }
+    
+    .num-btn:hover {
+        border-color: var(--color-primary, #0066cc);
+        color: var(--color-primary, #0066cc);
+    }
+    
+    .num-btn.active {
+        background: var(--color-primary, #0066cc);
+        color: white;
+        border-color: var(--color-primary, #0066cc);
     }
     
     /* EXCEPTIONAL POD Gallery grid system */
