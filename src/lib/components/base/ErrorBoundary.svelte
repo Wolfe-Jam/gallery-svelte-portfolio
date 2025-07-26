@@ -4,6 +4,7 @@ Catches component failures and shows graceful fallback
 -->
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { logger } from '$lib/logger.js';
   
   // Svelte 5 Props
   let { 
@@ -25,7 +26,7 @@ Catches component failures and shows graceful fallback
       errorStack = event.error?.stack || '';
       
       // Log to console for debugging
-      console.error(`[${componentName}] Component Error:`, {
+      logger.error(`[${componentName}] Component Error:`, {
         message: errorMessage,
         stack: errorStack,
         event
@@ -40,7 +41,7 @@ Catches component failures and shows graceful fallback
       hasError = true;
       errorMessage = `Promise rejection: ${event.reason}`;
       
-      console.error(`[${componentName}] Promise Rejection:`, {
+      logger.error(`[${componentName}] Promise Rejection:`, {
         reason: event.reason,
         promise: event.promise
       });

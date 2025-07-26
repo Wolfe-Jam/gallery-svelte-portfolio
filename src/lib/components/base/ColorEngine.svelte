@@ -6,6 +6,7 @@ HEXTRA color science integration
   import { createEventDispatcher } from 'svelte';
   import type { Component, BAI_Size } from '$lib/types/bai-compatible.js';
   import { BAI_SIZES, MASTER_SIZE } from '$lib/types/bai-compatible.js';
+  import { logger } from '$lib/logger.js';
   
   const dispatch = createEventDispatcher();
   
@@ -26,7 +27,7 @@ HEXTRA color science integration
     try {
       // Validate color input
       if (!color || !color.startsWith('#') || color.length !== 7) {
-        console.warn('Invalid color format:', color);
+        logger.warn('Invalid color format:', color);
         return 75; // Default safe compatibility score
       }
       
@@ -49,7 +50,7 @@ HEXTRA color science integration
       
       return Math.round(quality);
     } catch (error) {
-      console.error('Color analysis failed:', error);
+      logger.error('Color analysis failed:', error);
       return 50; // Safe fallback
     }
   }
@@ -83,7 +84,7 @@ HEXTRA color science integration
       const upperHex = hex.toUpperCase();
       return colorNames[upperHex] || upperHex;
     } catch (error) {
-      console.error('Color name detection failed:', error);
+      logger.error('Color name detection failed:', error);
       return hex || 'Unknown';
     }
   }
@@ -109,7 +110,7 @@ HEXTRA color science integration
         }
       });
     } catch (error) {
-      console.error('Color selection failed:', error);
+      logger.error('Color selection failed:', error);
       
       // Dispatch error event
       dispatch('colorError', {

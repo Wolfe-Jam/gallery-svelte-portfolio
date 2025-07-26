@@ -10,5 +10,9 @@ export default defineConfig({
 	preview: {
 		port: 5173,
 		strictPort: false
+	},
+	esbuild: {
+		// Remove all console statements in production builds
+		drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : []
 	}
 });
